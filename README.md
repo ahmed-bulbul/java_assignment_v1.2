@@ -1,4 +1,4 @@
-1) How can you suggest enhancement to this code snippet.
+Q1) How can you suggest enhancement to this code snippet.
 ```java
 public class ArrArgs {
     public static void main (String args[]) {
@@ -38,3 +38,30 @@ public class ArrArgs {
 }
 
 ```
+Q2) What is the o/p if java security manager is installed and below program is ran.
+```java
+public class PermisTest {
+    public static void main(String[] args) throws Exception {
+        System.out.println(System.getProperty("user.home"));
+        try {
+            Scanner scObj = new Scanner(new File("input.txt"));
+            int no1 = scObj.nextInt();
+            int no2 = scObj.nextInt();
+            System.out.println("The two nos are : " + no1 + ", " + no2);
+
+            Formatter outObj = new Formatter(new File("output.txt"));
+            int totalSum = no1 + no2;
+            System.out.println("The total sum value is " + totalSum);
+            outObj.format("%d", totalSum);
+            outObj.close();
+        } catch (Exception ee) {
+            System.out.println("Error " + ee.toString());
+        }
+    }
+}
+```
+Output :
+<user_home_path>
+Error java.security.AccessControlException: access denied ("java.io.FilePermission" "input.txt" "read")
+
+
