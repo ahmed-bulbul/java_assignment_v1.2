@@ -96,4 +96,55 @@ for (int i = 0; i < 1_000_000; i++) {
 }
 
 ```
+Q4) Write an implementation to read list of items to be added into the restaurant menulist.
+The items can be sorted naturally based on categories and also explicitly able to sort based on
+price/name.
+
+```java
+import java.util.*;
+
+class MenuItem implements Comparable<MenuItem> {
+    String category;
+    String name;
+    double price;
+
+    public MenuItem(String category, String name, double price) {
+        this.category = category;
+        this.name = name;
+        this.price = price;
+    }
+
+    @Override
+    public int compareTo(MenuItem other) {
+        return this.category.compareTo(other.category); // natural sorting
+    }
+
+    @Override
+    public String toString() {
+        return category + " - " + name + " : $" + price;
+    }
+}
+
+public class MenuList {
+    public static void main(String[] args) {
+        List<MenuItem> items = new ArrayList<>();
+        items.add(new MenuItem("Drinks", "Coke", 2.5));
+        items.add(new MenuItem("Main", "Burger", 8.0));
+        items.add(new MenuItem("Main", "Pizza", 10.0));
+        items.add(new MenuItem("Dessert", "Cake", 5.0));
+
+        System.out.println("Sorted by Category:");
+        Collections.sort(items);
+        items.forEach(System.out::println);
+
+        System.out.println("\nSorted by Price:");
+        items.sort(Comparator.comparingDouble(i -> i.price));
+        items.forEach(System.out::println);
+
+        System.out.println("\nSorted by Name:");
+        items.sort(Comparator.comparing(i -> i.name));
+        items.forEach(System.out::println);
+    }
+}
+```
 
