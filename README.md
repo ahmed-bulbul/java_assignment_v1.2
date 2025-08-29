@@ -150,3 +150,5 @@ public class MenuList {
 Q5: Added web-project folder as Spring boot project
     d. Can we build web project without web.xml? - No web.xml needed in Spring Boot (uses annotations).
 
+Q6 : added project -  swing - project 
+![img.png](img.png)
