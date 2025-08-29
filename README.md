@@ -65,3 +65,35 @@ Output :
 Error java.security.AccessControlException: access denied ("java.io.FilePermission" "input.txt" "read")
 
 
+Q3) Write a program to occur out of memory error using StringBuffer(while doing append) with
+storing millions of records and how to resolve it with GC and without GC?
+
+Code to cause OOM:
+```java
+public class OOMStringBuffer {
+    public static void main(String[] args) {
+        try {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < Integer.MAX_VALUE; i++) {
+                sb.append("Record-" + i);
+            }
+        } catch (OutOfMemoryError e) {
+            System.err.println("OutOfMemoryError occurred: " + e);
+        }
+    }
+}
+
+```
+With GC help:
+```java
+StringBuffer sb = new StringBuffer();
+for (int i = 0; i < 1_000_000; i++) {
+    sb.append("Record-" + i);
+    if (i % 100_000 == 0) {
+        System.out.println("Flushing buffer at " + i);
+        sb.setLength(0); // release memory
+    }
+}
+
+```
+
